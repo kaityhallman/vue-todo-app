@@ -4,8 +4,10 @@
     <p>Pending tasks: {{todos.filter(todo => todo.done === false).length}}</p>
     <Todo
       v-on:delete-todo="deleteTodo"
+      v-on:complete-todo="completeTodo"
       v-for="todo in todos"
       v-bind:todo="todo"
+      :todo-sync="todo"
       :key="todo.id"
     />
   </div>
@@ -23,6 +25,10 @@ export default {
     deleteTodo(todo) {
       const todoIndex = this.todos.indexOf(todo);
       this.todos.splice(todoIndex, 1);
+    },
+    completeTodo(todo) {
+      const todoIndex = this.todos.indexOf(todo);
+      this.todos[todoIndex].done = true;
     },
   },
 };
